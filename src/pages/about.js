@@ -111,7 +111,7 @@ const AboutPage = ({ data, location }) => {
         </p>
 
         <p>
-          Now I've reached the edge of my story, and I simply sit, experiencing the future unfolding before me.
+          Now I've reached the edge of my story, and I simply sit, experiencing the future unfolding before me with eager anticipation.
         </p>
         <br/>
         <br/>

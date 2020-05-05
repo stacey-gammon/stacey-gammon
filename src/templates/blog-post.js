@@ -4,7 +4,7 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
-import { ShareToSocialLinks } from "../components/Social/share_social_links"
+import { ShareToSocialLinks } from "../components/social/share_social_links"
 
 class BlogPostTemplate extends React.Component {
   render() {

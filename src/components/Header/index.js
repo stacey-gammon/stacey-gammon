@@ -2,6 +2,8 @@ import React from "react"
 import logo from "./logo.png"
 import { Link } from "gatsby"
 import "./style.css"
+import { ContactSocialLinks } from "../Social/contact_social_links"
+import { FaTwitter, FaGit, FaLinkedin } from "react-icons/fa"
 
 class Header extends React.Component {
   render() {
@@ -44,15 +46,41 @@ class Header extends React.Component {
                 </Link>
               </h1>
             </li>
+            <li className="nav-li">
+              <h1 className="li-h1" style={aboutLinkStyle}>
+                <Link className="li-link" to={`/about`}>
+                  About
+                </Link>
+              </h1>
+            </li>
+            <li className="nav-li">
+              <h1 className="li-h1" style={{}}>
+                |
+              </h1>
+            </li>
+            <li className="nav-li">
+              <h1 className="li-h1" style={{}}>
+               <a className="socialContactLink" href="https://www.linkedin.com/in/stacey-gammon">
+                <FaLinkedin />
+              </a>
+              </h1>
+            </li>
+            <li className="nav-li">
+              <h1 className="li-h1" style={{}}>
+                <a className="socialContactLink" href="https://github.com/Stacey-Gammon">
+                  <FaGit />
+                </a>
+              </h1>
+            </li>
             <li
               style={{
                 float: "left",
               }}
             >
-              <h1 className="li-h1" style={aboutLinkStyle}>
-                <Link className="li-link" to={`/about`}>
-                  About
-                </Link>
+              <h1 className="li-h1" style={{}}>
+                <a className="socialContactLink" href="https://twitter.com/Stacey_Gammon">
+                  <FaTwitter />
+                </a>
               </h1>
             </li>
           </ul>

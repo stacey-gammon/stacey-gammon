@@ -4,10 +4,15 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import { ShareToSocialLinks } from "../components/Social/share_social_links"
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
+    const post = this.props.data.markdownRemark;
+
+    console.log('post ', post);
+    console.log(this.props);
+
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
 
@@ -45,6 +50,12 @@ class BlogPostTemplate extends React.Component {
             }}
           />
           <footer>
+            <ShareToSocialLinks
+              url={`http://www.staceygammon.com/${this.props.location.pathname}`}
+              text={post.frontmatter.title}
+              longtext={`Check out this post by Stacey Gammon about "${post.frontmatter.title}"`}
+              />
+              <br/>
             <Bio />
           </footer>
         </article>

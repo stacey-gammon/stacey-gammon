@@ -1,7 +1,7 @@
 ---
 template: post
 title: How to search for and delete Kibana Saved Objects
-slug: search-and-delete-kibana-saved-objects
+slug: kibana_saved_object_development_management
 date: "2020-05-05T12:46:37.121Z"
 category: Kibana
 tags: ["Elastic", "Kibana", "Saved Objects", "Dev tools"]

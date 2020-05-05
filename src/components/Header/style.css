@@ -13,11 +13,16 @@
     min-width: 50;
     height: 70px;
 }
-.header-nav{
+.header-nav {
     float: right;
     width: 100%;
     margin-top: auto;
     margin-bottom: auto;
+}
+.socialContactLink {
+    text-decoration: none;
+    color: black;
+    box-shadow: none;
 }
 .nav-ul{
     list-style: none;

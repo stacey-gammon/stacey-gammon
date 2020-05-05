@@ -1,5 +1,8 @@
 var plugins = [{
       plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
+      options: {"plugins":[],"trackingId":"UA-32298142-12","head":false,"pageTransitionDelay":0,"defer":false},
+    },{
+      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
       options: {"plugins":[]},
     },{
       plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-feed/gatsby-ssr'),

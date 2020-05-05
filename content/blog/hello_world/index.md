@@ -1,7 +1,7 @@
 ---
 template: post
 title: Hello World!
-slug: introduction
+slug: hello_world
 date: "2020-05-04T23:46:37.121Z"
 category: Introductions
 tags: ["Intoduction"]
@@ -9,7 +9,8 @@ tags: ["Intoduction"]
 
 ## Hello World!
 
-Hello World! I'm Stacey, nice to meet you. I've finally decided to build a personal website using Gatsby and Netlify.
+Hello World! I'm Stacey, nice to meet you. I've finally decided to build a personal website using [GatsbyJS](https://www.gatsbyjs.org/) and
+ [Netlify](https://www.netlify.com/).
 
 So far, I'm impressed. I love this ability to write blog posts in markdown and upload them to github.
 

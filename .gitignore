@@ -40,7 +40,7 @@ test/**/public
 public/
 node_modules/
 e2e-tests/gatsby-pnp/
-.cache/
+#.cache/
 .netlify
 
 # IDE specific

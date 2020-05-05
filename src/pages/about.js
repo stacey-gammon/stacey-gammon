@@ -13,7 +13,7 @@ const AboutPage = ({ data, location }) => {
       <div style={{ marginTop: `30px`, fontFamily: `Montserrat` }}>
         <h2>About me</h2>
         
-        <p>Hello, I'm Stacey. 👋</p>
+        <p>Hello, I'm Stacey. <span role="img" aria-label="wave">👋</span></p>
 
         <p>
           Over the years, I've been involved in a lot of things. I'm somewhat of a serial hobbyist.

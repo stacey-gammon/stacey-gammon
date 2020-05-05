@@ -2,7 +2,6 @@ import React from "react"
 import logo from "./logo.png"
 import { Link } from "gatsby"
 import "./style.css"
-import { ContactSocialLinks } from "../Social/contact_social_links"
 import { FaTwitter, FaGit, FaLinkedin } from "react-icons/fa"
 
 class Header extends React.Component {

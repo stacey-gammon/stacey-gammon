@@ -4,7 +4,6 @@ import Header from "./Header"
 import "./style.css"
 
 function Layout({ location, title, children }) {
-  const rootPath = `${__PATH_PREFIX__}/`
 
   return (
     <div

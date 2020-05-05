@@ -9,10 +9,6 @@ import { ShareToSocialLinks } from "../components/social/share_social_links"
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
-
-    console.log('post ', post);
-    console.log(this.props);
-
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
 

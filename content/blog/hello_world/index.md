@@ -1,15 +1,15 @@
 ---
 template: post
-title: Nice to meet you
+title: Hello World!
 slug: introduction
 date: "2020-05-04T23:46:37.121Z"
 category: Introductions
 tags: ["Intoduction"]
 ---
 
-## Hello!
+## Hello World!
 
-Hello, I'm Stacey, nice to meet you! I've finally decided to build a personal website using Gatsby and Netlify.
+Hello World! I'm Stacey, nice to meet you. I've finally decided to build a personal website using Gatsby and Netlify.
 
 So far, I'm impressed. I love this ability to write blog posts in markdown and upload them to github.
 

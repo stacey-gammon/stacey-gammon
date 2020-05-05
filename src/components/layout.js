@@ -1,6 +1,7 @@
 import React from "react"
 import { rhythm } from "../utils/typography"
 import Header from "./Header"
+import "./style.css"
 
 function Layout({ location, title, children }) {
   const rootPath = `${__PATH_PREFIX__}/`
@@ -13,6 +14,7 @@ function Layout({ location, title, children }) {
         maxWidth: rhythm(32),
         padding: `${rhythm(1)} ${rhythm(2 / 4)} 0 ${rhythm(2 / 4)} `,
         fontFamily: `Montserrat`,
+        backgroundColor:  `#E8F5F0`,
       }}
     >
       <header>
@@ -28,6 +30,7 @@ function Layout({ location, title, children }) {
           paddingLeft: `30px`,
           paddingRight: `30px`,
           paddingTop: `-20px`,
+          backgroundColor:  `white`,
         }}
       >
         {children}

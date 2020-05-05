@@ -2,7 +2,8 @@ import React from "react"
 import logo from "./logo.png"
 import { Link } from "gatsby"
 import "./style.css"
-import { FaTwitter, FaGit, FaLinkedin } from "react-icons/fa"
+import { AiOutlineGithub } from "react-icons/ai"
+import { FaTwitter, FaLinkedin } from "react-icons/fa"
 
 class Header extends React.Component {
   render() {
@@ -67,7 +68,7 @@ class Header extends React.Component {
             <li className="nav-li">
               <h1 className="li-h1" style={{}}>
                 <a className="socialContactLink" href="https://github.com/Stacey-Gammon">
-                  <FaGit />
+                  <AiOutlineGithub />
                 </a>
               </h1>
             </li>

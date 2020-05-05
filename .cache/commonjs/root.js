@@ -56,12 +56,12 @@ if (window.__webpack_hot_middleware_reporter__ !== undefined && process.env.GATS
 // to not introduce breaking change.
 // Remove this in v3
 
-const RouteHandler = props => /*#__PURE__*/_react.default.createElement(_router.BaseContext.Provider, {
+const RouteHandler = props => _react.default.createElement(_router.BaseContext.Provider, {
   value: {
     baseuri: `/`,
     basepath: `/`
   }
-}, /*#__PURE__*/_react.default.createElement(_queryResultStore.PageQueryStore, props));
+}, _react.default.createElement(_queryResultStore.PageQueryStore, props));
 
 class LocationHandler extends _react.default.Component {
   render() {
@@ -70,18 +70,18 @@ class LocationHandler extends _react.default.Component {
     } = this.props;
 
     if (!_loader.default.isPageNotFound(location.pathname)) {
-      return /*#__PURE__*/_react.default.createElement(_ensureResources.default, {
+      return _react.default.createElement(_ensureResources.default, {
         location: location
-      }, locationAndPageResources => /*#__PURE__*/_react.default.createElement(_navigation.RouteUpdates, {
+      }, locationAndPageResources => _react.default.createElement(_navigation.RouteUpdates, {
         location: location
-      }, /*#__PURE__*/_react.default.createElement(_gatsbyReactRouterScroll.ScrollContext, {
+      }, _react.default.createElement(_gatsbyReactRouterScroll.ScrollContext, {
         location: location,
         shouldUpdateScroll: _navigation.shouldUpdateScroll
-      }, /*#__PURE__*/_react.default.createElement(_router.Router, {
+      }, _react.default.createElement(_router.Router, {
         basepath: __BASE_PATH__,
         location: location,
         id: "gatsby-focus-wrapper"
-      }, /*#__PURE__*/_react.default.createElement(RouteHandler, (0, _extends2.default)({
+      }, _react.default.createElement(RouteHandler, (0, _extends2.default)({
         path: encodeURI(locationAndPageResources.pageResources.page.matchPath || locationAndPageResources.pageResources.page.path)
       }, this.props, locationAndPageResources))))));
     }
@@ -93,18 +93,18 @@ class LocationHandler extends _react.default.Component {
     let custom404;
 
     if (real404PageResources) {
-      custom404 = /*#__PURE__*/_react.default.createElement(_queryResultStore.PageQueryStore, (0, _extends2.default)({}, this.props, {
+      custom404 = _react.default.createElement(_queryResultStore.PageQueryStore, (0, _extends2.default)({}, this.props, {
         pageResources: real404PageResources
       }));
     }
 
-    return /*#__PURE__*/_react.default.createElement(_navigation.RouteUpdates, {
+    return _react.default.createElement(_navigation.RouteUpdates, {
       location: location
-    }, /*#__PURE__*/_react.default.createElement(_router.Router, {
+    }, _react.default.createElement(_router.Router, {
       basepath: __BASE_PATH__,
       location: location,
       id: "gatsby-focus-wrapper"
-    }, /*#__PURE__*/_react.default.createElement(RouteHandler, {
+    }, _react.default.createElement(RouteHandler, {
       path: location.pathname,
       location: location,
       pageResources: dev404PageResources,
@@ -114,12 +114,12 @@ class LocationHandler extends _react.default.Component {
 
 }
 
-const Root = () => /*#__PURE__*/_react.default.createElement(_router.Location, null, locationContext => /*#__PURE__*/_react.default.createElement(LocationHandler, locationContext)); // Let site, plugins wrap the site e.g. for Redux.
+const Root = () => _react.default.createElement(_router.Location, null, locationContext => _react.default.createElement(LocationHandler, locationContext)); // Let site, plugins wrap the site e.g. for Redux.
 
 
 const WrappedRoot = (0, _apiRunnerBrowser.apiRunner)(`wrapRootElement`, {
-  element: /*#__PURE__*/_react.default.createElement(Root, null)
-}, /*#__PURE__*/_react.default.createElement(Root, null), ({
+  element: _react.default.createElement(Root, null)
+}, _react.default.createElement(Root, null), ({
   result,
   plugin
 }) => {
@@ -128,6 +128,6 @@ const WrappedRoot = (0, _apiRunnerBrowser.apiRunner)(`wrapRootElement`, {
   };
 }).pop();
 
-var _default = () => /*#__PURE__*/_react.default.createElement(_queryResultStore.StaticQueryStore, null, WrappedRoot);
+var _default = () => _react.default.createElement(_queryResultStore.StaticQueryStore, null, WrappedRoot);
 
 exports.default = _default;

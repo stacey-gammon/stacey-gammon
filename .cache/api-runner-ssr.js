@@ -1,9 +1,18 @@
 var plugins = [{
-      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-react-helmet/gatsby-ssr'),
+      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-google-analytics/gatsby-ssr'),
+      options: {"plugins":[]},
+    },{
+      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-feed/gatsby-ssr'),
       options: {"plugins":[]},
     },{
       plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-manifest/gatsby-ssr'),
-      options: {"plugins":[],"name":"gatsby-starter-default","short_name":"starter","start_url":"/","background_color":"#663399","theme_color":"#663399","display":"minimal-ui","icon":"src/images/gatsby-icon.png"},
+      options: {"plugins":[],"name":"22Boxes Gatsby Uno","short_name":"22Boxes.com","start_url":"/","background_color":"#ffffff","theme_color":"#663399","display":"minimal-ui","icon":"content/assets/favicon.ico"},
+    },{
+      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-react-helmet/gatsby-ssr'),
+      options: {"plugins":[]},
+    },{
+      plugin: require('/Users/gammon/Personal/stacey-gammon/node_modules/gatsby-plugin-typography/gatsby-ssr'),
+      options: {"plugins":[],"pathToConfigModule":"src/utils/typography"},
     }]
 // During bootstrap, we write requires at top of this file which looks like:
 // var plugins = [

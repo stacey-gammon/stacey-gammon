@@ -1,0 +1,1 @@
+module.exports = require("/Users/gammon/Personal/stacey-gammon/src/utils/typography")

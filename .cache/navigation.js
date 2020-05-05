@@ -171,7 +171,9 @@ class RouteAnnouncer extends React.Component {
       if (document.title) {
         pageName = document.title
       }
-      const pageHeadings = document.querySelectorAll(`#gatsby-focus-wrapper h1`)
+      const pageHeadings = document
+        .getElementById(`gatsby-focus-wrapper`)
+        .getElementsByTagName(`h1`)
       if (pageHeadings && pageHeadings.length) {
         pageName = pageHeadings[0].textContent
       }

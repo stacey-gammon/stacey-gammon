@@ -1,13 +1,13 @@
 ---
 template: post
-title: How to search for and delete Kibana Saved Objects
+title: Searching for and deleting Kibana saved objects using Dev Tools
 slug: kibana_saved_object_development_management
 date: "2020-05-05T12:46:37.121Z"
-category: Kibana
-tags: ["Elastic", "Kibana", "Saved Objects", "Dev tools"]
+category: Kibana Plugin Development
+tags: ["Elastic", "Kibana", "Saved Objects", "Dev tools", "Development"]
 ---
 
-## Searching for and deleting new Saved Object types in Kibana
+## Searching for and deleting new Saved Object types in Kibana using Dev Tools
 
 ### Setup
 
@@ -35,7 +35,8 @@ does so you can see all the fields of a particular instance of a Saved Object:
 
 <img src="./inspect-saved-object-management.png"/>
 
-Dev tools can be your friend here.  You can do things like:
+Dev tools can be your friend here, to view the raw data backing a saved object, and also to
+do some clean up. You can do things like:
 
 #### Search by type
 

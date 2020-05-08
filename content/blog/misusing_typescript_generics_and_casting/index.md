@@ -213,3 +213,82 @@ renderer.render(props);
 ```
 
 If you do, let me know!!
+
+## Update!
+
+Made a bit of progress.  Managed to avoid the casting by changing the type of the `renderers` collection,
+but now I get errors during the rendering, probably because `id` is a runtime value.
+
+```ts
+interface PersonalizedSayHiProps {
+  name: string;
+}
+
+interface RendererToPropTypes {
+  ['sayHi']: {};
+  ['personalizedSayHi']: PersonalizedSayHiProps;
+}
+
+export type RendererId = keyof RendererToPropTypes;
+
+interface Renderer<Id extends RendererId = RendererId> {
+  id: Id;
+  render: (props: RendererToPropTypes[Id]) => void;
+}
+
+type SayHiRenderer = Renderer<'sayHi'>;
+type PersonalizedSayHiRenderer = Renderer<'personalizedSayHi'>;
+
+const sayHiRenderer: SayHiRenderer = {
+  id: 'sayHi',
+  render: () => { console.log('Hi!') }
+}
+
+const personalizedSayHiRenderer: PersonalizedSayHiRenderer = {
+  id: 'personalizedSayHi',
+  render: (props: PersonalizedSayHiProps) => { console.log('Hi ' + props.name + '!') }
+}
+
+
+type Renderers = {
+  [Id in keyof RendererToPropTypes]?: Renderer<Id>
+}
+
+// No downcasting!!
+const renderers: Renderers = { 'sayHi': sayHiRenderer, 'personalizedSayHi': personalizedSayHiRenderer };
+
+interface Renderable<Id extends RendererId = RendererId> {
+  id: Id;
+  props: RendererToPropTypes[Id];
+}
+
+let renderables: Renderable[] = [];
+
+function addRenderable<Id extends RendererId>(renderable: Renderable<Id>) {
+  renderables.push(renderable);
+}
+
+addRenderable({ id: 'sayHi', props: {} });
+
+// Success! Type Error!
+addRenderable({ id: 'personalizedSayHi', props: { name: { typeErrorHere: 'boo' } } });
+
+// No type error, yay.
+addRenderable({ id: 'personalizedSayHi', props: { name: 'Stacey' } });
+
+function renderThings() {
+  renderables.forEach(renderable => {
+    // Type is "const foundRenderer: Renderer<"sayHi"> | Renderer<"personalizedSayHi"> | undefined"
+    const foundRenderer = renderers[renderable.id];
+    if (foundRenderer) {
+      // Type error :(
+      foundRenderer.render(renderable.props);
+    }
+  });
+}
+
+renderThings();
+```
+
+I'd be happy if I could at least isolate the neccessary casting to the plugin doing the registering.
+

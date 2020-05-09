@@ -373,15 +373,21 @@ function getRenderer<Id extends PropType>(id: Id): Renderer<Id> | undefined {
 
 addRenderer(p2Renderer);
 
+// Type: const r1: Renderer<"p1"> | undefined
 const r1 = getRenderer('p1');
+
+// Simulate deserialization.
 const r: PropType = JSON.stringify('p1') as PropType;
 
-// We never want to allow Renderer<'p1' | 'p2'> or it allows these calls without 
-// errors.
+// I think what this boils down to is that we never want to allow Renderer<'p1' | 'p2'> or
+// it allows both the following calls without errors.
 const r2 = getRenderer(r)!;
 // no errors, bad!
 r2.render({ foo: 's' });
 r2.render({ bar: 's' });
+
+
+
 ```
 
 Looks like these issues in the typescript repo are relevant:

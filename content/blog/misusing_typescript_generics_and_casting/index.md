@@ -292,3 +292,100 @@ renderThings();
 
 I'd be happy if I could at least isolate the neccessary casting to the plugin doing the registering.
 
+## Update 2
+
+I think I've discovered that this is simply a limitation with typescript. I've managed to simplify the above examples.
+
+```ts
+interface Prop1 {
+  foo: string;
+}
+
+interface Prop2 {
+  bar: string;
+}
+
+interface PropTypeMap {
+  ['p2']: Prop2;
+  ['p1']: Prop1;
+}
+
+export type PropType = keyof PropTypeMap;
+
+interface Renderer<Id extends PropType> {
+  id: Id;
+  render: (props: PropTypeMap[Id]) => void;
+}
+
+type P1Renderer = Renderer<'p1'>;
+type P2Renderer = Renderer<'p2'>;
+
+const p1Renderer: Renderer<'p1'> = {
+  id: 'p1',
+  render: (props) => {},
+}
+const p2Renderer: Renderer<'p2'> = {
+  id: 'p2',
+  render: (props) => {},
+}
+
+// no error, bad!
+const wrongRenderer: Renderer<'p2' | 'p1'> = {
+  id: 'p2',
+  render: (props) => { }
+}
+
+type Renderers = {
+  [Id in PropType]?: Renderer<Id>
+};
+
+const renderers: Renderers = {};
+
+// Forced to use `any` here :`(
+const renderers2: { [key: string]: Renderer<any> } = {};
+
+function addRenderer<Id extends PropType>(renderer: Renderer<Id>) {
+  // error, bad! Type 'Renderer<Id>' is not assignable to type 'Renderer<"p2">'.
+  //    Types of property 'id' are incompatible.
+  //      Type 'Id' is not assignable to type '"p2"'
+  renderers[renderer.id] = renderer;
+
+  // no error, good.
+  renderers2[renderer.id] = renderer;
+
+  // no error, good.
+  renderers['p1'] = p1Renderer;
+}
+
+function getRenderer<Id extends PropType>(id: Id): Renderer<Id> | undefined {
+  // error: '"p1"' is assignable to the constraint of type 'Id', 
+  //  but 'Id' could be instantiated with a different subtype of constraint '"p2" | "p1"'."
+  //
+  // return renderers[id];
+
+  // Same error, even with the casting.
+  // 
+  // return renderers[id] as Renderer<Id>;
+
+  // No error, because of the "any"
+  return renderers2[id];
+}
+
+addRenderer(p2Renderer);
+
+const r1 = getRenderer('p1');
+const r: PropType = JSON.stringify('p1') as PropType;
+
+// We never want to allow Renderer<'p1' | 'p2'> or it allows these calls without 
+// errors.
+const r2 = getRenderer(r)!;
+// no errors, bad!
+r2.render({ foo: 's' });
+r2.render({ bar: 's' });
+```
+
+Looks like these issues in the typescript repo are relevant:
+
+- https://github.com/microsoft/TypeScript/issues/13995
+- https://github.com/microsoft/TypeScript/issues/25879
+- https://github.com/Microsoft/TypeScript/issues/27808

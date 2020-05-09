@@ -395,3 +395,82 @@ Looks like these issues in the typescript repo are relevant:
 - https://github.com/microsoft/TypeScript/issues/13995
 - https://github.com/microsoft/TypeScript/issues/25879
 - https://github.com/Microsoft/TypeScript/issues/27808
+
+## Update 3
+
+I think I GOT IT!!!
+
+```ts
+interface Prop1 {
+  foo: string;
+}
+
+interface Prop2 {
+  bar: string;
+}
+
+interface PropTypeMap {
+  ['p2']: Prop2;
+  ['p1']: Prop1;
+}
+
+export type PropType = keyof PropTypeMap;
+
+interface Renderer<Id extends PropType> {
+  id: Id;
+  render: (props: PropTypeMap[Id]) => void;
+}
+
+const p1Renderer: Renderer<'p1'> = {
+  id: 'p1',
+  render: (props) => {},
+}
+const p2Renderer: Renderer<'p2'> = {
+  id: 'p2',
+  render: (props) => {},
+}
+
+// no error, bad!
+const wrongRenderer: Renderer<'p2' | 'p1'> = {
+  id: 'p2',
+  render: (props) => { }
+}
+
+type Renderers = {
+  [Id in PropType]?: Renderer<Id>
+};
+
+const renderers: Renderers = {};
+
+function addRenderer<Id extends PropType>(id: Id, renderer: Renderers[Id]) {
+  // No error, YAY!
+  renderers[id] = renderer;
+}
+
+function getRenderer<Id extends PropType>(id: Id): Renderers[Id] | undefined {
+  // No Error, YAY!
+   return renderers[id];
+}
+
+// No error, YAY!
+addRenderer(p2Renderer.id, p2Renderer);
+
+// No error, YAY
+addRenderer('p1', p1Renderer);
+
+// Error, YAY!
+addRenderer('p1', p2Renderer);
+
+const r1 = getRenderer('p1')!;
+// No errors, YAY!
+r1.render({ foo: 'b' });
+
+// Simulate deserialization.
+const r: PropType = JSON.stringify('p1') as PropType;
+
+const r2 = getRenderer(r)!;
+// errors! YAY!
+r2.render({ foo: 's' });
+r2.render({ bar: 's' });
+
+```

@@ -398,7 +398,8 @@ Looks like these issues in the typescript repo are relevant:
 
 ## Update 3
 
-I think I GOT IT!!!
+I think I GOT IT!!!  Well, most of the way there anyway. There are still a couple situations
+where it should error but it doesn't.  
 
 ```ts
 interface Prop1 {
@@ -430,7 +431,7 @@ const p2Renderer: Renderer<'p2'> = {
   render: (props) => {},
 }
 
-// no error, bad!
+// no error, boo :(
 const wrongRenderer: Renderer<'p2' | 'p1'> = {
   id: 'p2',
   render: (props) => { }
@@ -457,6 +458,9 @@ addRenderer(p2Renderer.id, p2Renderer);
 
 // No error, YAY
 addRenderer('p1', p1Renderer);
+
+// No error, boo. :(
+addRenderer(wrongRenderer.id, wrongRenderer);
 
 // Error, YAY!
 addRenderer('p1', p2Renderer);

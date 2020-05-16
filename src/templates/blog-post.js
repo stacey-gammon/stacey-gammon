@@ -5,11 +5,12 @@ import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 import { ShareToSocialLinks } from "../components/social/share_social_links"
+import { CommentSection } from '../components/comment_section';
 
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
-    const siteTitle = this.props.data.site.siteMetadata.title
+    const { title: siteTitle, siteUrl } = this.props.data.site.siteMetadata
     const { previous, next } = this.props.pageContext
 
     return (
@@ -46,6 +47,7 @@ class BlogPostTemplate extends React.Component {
             }}
           />
           <footer>
+            <CommentSection post={post} siteUrl={siteUrl} location={this.props.location} />
             <ShareToSocialLinks
               url={`http://www.staceygammon.com/${this.props.location.pathname}`}
               text={post.frontmatter.title}

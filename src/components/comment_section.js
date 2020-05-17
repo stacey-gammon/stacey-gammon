@@ -1,16 +1,15 @@
 import React from 'react';
 import { Disqus, CommentCount } from 'gatsby-plugin-disqus'
 
-export const CommentSection = (props) => {
-  console.log('props', props);
-  const { post, siteUrl, location } = props;
+export const CommentSection = ({ id, title, siteUrl, location }) => {
   let disqusConfig = {
     url: `${siteUrl+location.pathname}`,
-    identifier: post.id,
-    title: post.title,
+    identifier: id,
+    title,
   }
+
   return (
-    <>>
+    <>
       <CommentCount config={disqusConfig} placeholder={'...'} />
       <Disqus config={disqusConfig} />
     </>

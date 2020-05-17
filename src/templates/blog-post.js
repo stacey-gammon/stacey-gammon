@@ -10,6 +10,7 @@ import { CommentSection } from '../components/comment_section';
 class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.markdownRemark;
+    console.log('this.props.data.site.siteMetadata', this.props.data.site.siteMetadata)
     const { title: siteTitle, siteUrl } = this.props.data.site.siteMetadata
     const { previous, next } = this.props.pageContext
 
@@ -47,7 +48,7 @@ class BlogPostTemplate extends React.Component {
             }}
           />
           <footer>
-            <CommentSection post={post} siteUrl={siteUrl} location={this.props.location} />
+            <CommentSection id={post.id} title={post.frontmatter.title} siteUrl={siteUrl} location={this.props.location} />
             <ShareToSocialLinks
               url={`http://www.staceygammon.com/${this.props.location.pathname}`}
               text={post.frontmatter.title}
@@ -96,6 +97,7 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        siteUrl
       }
     }
     markdownRemark(fields: { slug: { eq: $slug } }) {

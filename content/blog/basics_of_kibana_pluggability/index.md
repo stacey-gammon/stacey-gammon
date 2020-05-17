@@ -35,7 +35,7 @@ Canvas, Maps - these are all applications.
 <br/>
 
 You can see an example of registering an application 
-[here](https://github.com/stacey-gammon/kibana-plugins/blob/master/greeting_cards_story/greeting_cards_v1/public/plugin.ts#L28)
+[here](https://github.com/stacey-gammon/kibana-plugins/blob/master/plugins/greeting_cards_v1/public/plugin.ts#L6)
 
 ```ts
 core.application.register({
@@ -157,20 +157,21 @@ Lets start with a very simple story to explain where registries come into play.
 This blog post is only going to touch on the first part of the story. I'll have to write more later
 to get to the part where a registry is actually implemented.
 
-### Meet Jerry
+### Phase 1: Build a simple greeting card application
 
-Jerry wants to build a plugin in Kibana that creates greeting cards.
+Lets build a plugin in Kibana that creates greeting cards.
 
-He does and you can explore 
-<a href="https://github.com/stacey-gammon/kibana-plugins/tree/master/greeting_cards_story/greeting_cards_v1">the code here </a>.
+You can explore 
+<a href="https://github.com/stacey-gammon/kibana-plugins/blob/master/plugins/greeting_cards_v1">the code here </a>.
 
-It's very simple. It lets you create a greeting card:
+It's very simple. It lets you create two kinds of greeting cards, "Get well soon", and "Happy birthday", and add
+some personalization to it:
 
 <img src="./greeting_card_story_create.png" height="300px"/>
 
 <br/>
 
-and view it:
+Then you can view it, in full screen mode: 
 
 <img src="./greeting_card_story_view.png" height="300px"/>
 
@@ -178,13 +179,16 @@ and view it:
 
 ### Pitfalls
 
-Jerry hard coded the greeting card types. If he wants to add another one, he's going to have to add
+I used some antipatterns on purpose in this example.
+
+I hard coded the greeting card types. If I want to add another one, I'm going to have to add
 multiple "if" statements
 
 This is not very maintainable. 
+
 This is a code smell. 
 
-Instead of having to add an extra conditional statement for every type of greeting card he should 
-create a registry of greeting card types.
+Instead of having to add an extra conditional statement for every type of greeting card, lets create an
+abstraction layer - a registry of greeting card types - that we can use dynamically.
 
-and that's all for now. Stay tuned for part 2!
+That's all for now. Stay tuned for part 2!

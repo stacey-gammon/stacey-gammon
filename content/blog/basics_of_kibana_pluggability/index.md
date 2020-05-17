@@ -9,8 +9,13 @@ tags: ["kibana", "plugin", "development"]
 
 ## Goals
 
+The goal of this post is to help developers building plugins on top of Kibana understand key concepts and
+terminology. Some of this terminology is industry wide, while some is more esoteric, and unique to Elastic.
+When reading documentation, it's likely you'll run into these terms, so it will help to have an understanding
+of them when building plugins.
+
 By the end of this post you should understand the differences and similarities between registries,
-pluggable extension points, plugins, and applications. 
+extension points, plugins, and applications. 
 
 This is written right around the release of 7.7, so things may change in the future, as Kibana APIs
 are still under quite a bit of fluctuation.
@@ -112,11 +117,16 @@ Some more examples of extension points:
 
 ### Registries
 
-Registries are stateful extension points. They contain the registered things. These registered 
-things often have to adhere to a certain generic shape, depending on the registry.  Registries are used 
-primarily for two situations:
- - when a list of things is going to be displayed in the UI somewhere
- - when the state that is used to create instances of these things ends up serialized and persisted somewhere.
+Registries are stateful containers. They contain registered items that adhere to adhere to a certain
+generic shape, or base implementation.  Registries are used primarily for two situations:
+
+ - When a list of things is going to be displayed in the UI somewhere
+ - When the state that is used to create instances of these things ends up serialized and persisted somewhere.
+
+ Many extension points support the ability for external plugin authors to add registry items.
+
+ The developer who creates a registry is called a _registrar_.  A developer who adds a custom registry item is called a
+ _registrator_.
 
  One <a href="https://github.com/elastic/kibana/blob/7.7/x-pack/plugins/advanced_ui_actions/public/plugin.ts#L70">example of the former</a> is how we display all registered uiActions attached to the
  `CONTEXT_MENU_TRIGGER` here

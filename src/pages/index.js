@@ -1,99 +1,52 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
+
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+import "./intro.css"
+import Timeline from "../components/timeline"
 
-const BlogIndex = ({ data, location }) => {
+const HomePage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges.filter(
-    edge => edge.node.frontmatter.template === "post"
-  )
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO title="All posts" />
-      {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
-        return (
-          <article
-            key={node.fields.slug}
-            style={{
-              marginTop: `-15px`,
-              marginBottom: `70px`,
-            }}
-          >
-            <header>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 10),
-                }}
-              >
-                <Link
-                  style={{
-                    boxShadow: `none`,
-                    color: "#000000",
-                    fontSize: `21px`,
-                    fontWeight: `400`,
-                    fontFamily: `Montserrat`,
-                  }}
-                  to={node.fields.slug}
-                >
-                  {title}
-                </Link>
-              </h3>
-              <small
-                style={{
-                  color: "#B7B7B7",
-                  fontSize: `11px`,
-                  fontWeight: `300`,
-                }}
-              >
-                {node.frontmatter.date}
-              </small>
-            </header>
-            <section
-              style={{ color: "#888888", fontSize: `17px`, fontWeight: `300` }}
-            >
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </section>
-          </article>
-        )
-      })}
+      <SEO title="Home" />
+      <div class="container">
+        <h2>hello world,</h2>
+        <h1>I'm Stacey </h1>
+        <br/>
+
+           <p className="introText">
+        I'm a software engineer with a passion for creating scalable, efficient, and maintanable solutions.
+        I love to roll up my sleeves and write massive amounts of code, but software development
+        is about more than just code. It's about people, relationships, communication, and business. At the end of the day, if I have
+         a challenge in front of me, am surrounded by good people, 
+        and have an opportunity to grow, I'm happy.
+      </p>
+
+      <p>Reach out and say "hi" at stacey@staceygammon.com</p>
+
+      <p className="quote">
+          <i>"Every day I discover more and more beautiful things. It’s enough to drive one mad. I have such a desire to do everything, my head is bursting with it."
+          
+          <br/>
+           ~ Claude Monet</i></p>
+           
+    </div>
+    <div>
+    </div>
     </Layout>
   )
 }
 
-export default BlogIndex
+export default HomePage
 
 export const pageQuery = graphql`
   query {
     site {
       siteMetadata {
         title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            template
-            title
-            tags
-            description
-            slug
-            category
-          }
-        }
       }
     }
   }

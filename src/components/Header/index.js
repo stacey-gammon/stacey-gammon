@@ -60,7 +60,7 @@ class Header extends React.Component {
             </li>
             <li className="nav-li">
               <h1 className="li-h1" style={{}}>
-               <a className="socialContactLink" href="https://www.linkedin.com/in/stacey-gammon">
+               <a className="socialContactLink" href="https://www.linkedin.com/in/staceygammon">
                 <FaLinkedin />
               </a>
               </h1>

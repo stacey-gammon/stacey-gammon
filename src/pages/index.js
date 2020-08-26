@@ -4,7 +4,6 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import "./intro.css"
-import Timeline from "../components/timeline"
 
 const HomePage = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
@@ -17,12 +16,11 @@ const HomePage = ({ data, location }) => {
         <h1>I'm Stacey </h1>
         <br/>
 
-           <p className="introText">
+      <p className="introText">
         I'm a software engineer with a passion for creating scalable, efficient, and maintanable solutions.
-        I love to roll up my sleeves and write massive amounts of code, but software development
-        is about more than just code. It's about people, relationships, communication, and business. At the end of the day, if I have
-         a challenge in front of me, am surrounded by good people, 
-        and have an opportunity to grow, I'm happy.
+        I love coding and tech, but also understand software development is about more than just code.
+        It's about people, relationships, communication, and business. At the end of the day, if I have
+        a challenge in front of me, am surrounded by good people, and have an opportunity to learn, I'm happy!
       </p>
 
       <p>Reach out and say "hi" at stacey@staceygammon.com</p>

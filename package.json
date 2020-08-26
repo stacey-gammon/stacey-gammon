@@ -1,12 +1,9 @@
 {
-  "name": "gatsby-starter-22boxes-uno",
+  "name": "stacey-gammon",
   "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "description": "A personal website for Stacey Gammon",
   "version": "0.1.0",
-  "author": "Gagandeep Singh <iamtherealgd@gmail.com>",
-  "bugs": {
-    "url": "https://github.com/iamtherealgd/gatsby-starter-22boxes-uno"
-  },
+  "author": "Stacey Gammon <stacey@staceygammon.com>",
   "dependencies": {
     "emotion": "^10.0.27",
     "gatsby": "^2.19.45",
@@ -42,7 +39,7 @@
   "devDependencies": {
     "prettier": "^1.19.1"
   },
-  "homepage": "https://github.com/iamtherealgd/gatsby-starter-22boxes-uno",
+  "homepage": "https://www.staceygammon.com",
   "keywords": [
     "gatsby"
   ],
@@ -50,7 +47,7 @@
   "main": "n/a",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iamtherealgd/gatsby-starter-22boxes-uno.git"
+    "url": "git+https://github.com/stacey-gammon/stacey-gammon"
   },
   "scripts": {
     "build": "gatsby build",

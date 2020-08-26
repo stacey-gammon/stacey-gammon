@@ -10,8 +10,8 @@ class Header extends React.Component {
     const { location } = this.props
 
     const blogLinkStyle = {
-      paddingBottom: location.pathname === "/" ? `5px` : `0px`,
-      boxShadow: location.pathname === "/" ? `0px 1px 0px 0px black` : `none`,
+      paddingBottom: location.pathname === "/blog" ? `5px` : `0px`,
+      boxShadow: location.pathname === "/blog" ? `0px 1px 0px 0px black` : `none`,
     }
     const workLinkStyle = {
       paddingBottom: location.pathname === "/work" ? `5px` : `0px`,
@@ -19,9 +19,9 @@ class Header extends React.Component {
         location.pathname === "/work" ? `0px 1px 0px 0px black` : `none`,
     }
     const aboutLinkStyle = {
-      paddingBottom: location.pathname === "/about" ? `5px` : `0px`,
+      paddingBottom: location.pathname === "/" ? `5px` : `0px`,
       boxShadow:
-        location.pathname === "/about" ? `0px 1px 0px 0px black` : `none`,
+        location.pathname === "/" ? `0px 1px 0px 0px black` : `none`,
     }
 
     return (
@@ -34,7 +34,7 @@ class Header extends React.Component {
           <ul className="nav-ul">
             <li className="nav-li">
               <h1 className="li-h1" style={blogLinkStyle}>
-                <Link className="li-link" to={`/`}>
+                <Link className="li-link" to={`/blog`}>
                   Blog
                 </Link>
               </h1>
@@ -48,7 +48,7 @@ class Header extends React.Component {
             </li>
             <li className="nav-li">
               <h1 className="li-h1" style={aboutLinkStyle}>
-                <Link className="li-link" to={`/about`}>
+                <Link className="li-link" to={`/`}>
                   About
                 </Link>
               </h1>

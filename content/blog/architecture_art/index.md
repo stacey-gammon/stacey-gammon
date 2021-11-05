@@ -29,13 +29,18 @@ Our architecture tends to look more like this:
 
 Or more accurately, it looks like this:
 
-<img src="./plugins_sfdp.png" height="300px"/>
+
+<a href="https://github.com/stacey-gammon/stacey-gammon/tree/master/arch_art/plugins_sfdp.png">
+<img src="./plugins_sfdp_small.png" height="300px"/>
+</a>
 
 _Click on each image to be taken to a larger version hosted in GitHub_.
 
 The bigger the node, the larger of a public API it has. The darker the node, the more incoming dependencies it has. There are so many nodes and edges in the above graph, that while I thought it did a good job of proving high coupling, there wasn’t too much else I could glean from it, though I think it makes nice artwork. I particularly like this view using the circo layout engine:
 
-<img src="./plugins_circo.png" height="300px"/>
+<a href="https://github.com/stacey-gammon/stacey-gammon/tree/master/arch_art/plugins_circo.png">
+<img src="./plugins_circo_small.png" height="300px"/>
+</a>
 
 Kibana supports grouping plugins inside sub-folders, but too few take advantage of it, to make it possible to “zoom-out” a level using the code.
 
@@ -84,7 +89,9 @@ So what can we do about all of this tight coupling between plugins and teams? On
 
 For example, look at this representation of the saved objects plugin (Saved Objects are a part of core, but there is an additional plugin with more extension points).
 
-<img src="./savedObjects_circo.png" height="300px"/>
+<a href="https://github.com/stacey-gammon/stacey-gammon/tree/master/arch_art/savedObjects_circo.png">
+<img src="./savedObjects_circo_small.png" height="300px"/>
+</a>
 
 Zooming in, it appears there are a bunch of API points that are only needed by the Dashboard plugin, and another chunk only used by the Saved Object Tagging plugin. If an API items is only used by a single other plugin, it would reduce coupling and increase cohesion to move it _into_ that plugin as a private implementation detail. Of course, it will depend on how coupled those APIs are to internal private details of the Saved Object plugin, which is not being captured in this doc.
 

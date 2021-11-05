@@ -8,6 +8,19 @@ https://www.staceygammon.com/
 
 ## Build & deploy locally
 
+### :wq
+Install dependencies
+
+```
+yarn
+```
+
+ensure you have gatsby cli downloaded as well.
+
+```
+npm install -g gatsby-cli
+```
+
 ### Build and run
 
 ```

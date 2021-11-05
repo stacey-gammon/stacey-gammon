@@ -48,7 +48,6 @@ class BlogPostTemplate extends React.Component {
             }}
           />
           <footer>
-            <CommentSection id={post.id} title={post.frontmatter.title} siteUrl={siteUrl} location={this.props.location} />
             <ShareToSocialLinks
               url={`http://www.staceygammon.com/${this.props.location.pathname}`}
               text={post.frontmatter.title}

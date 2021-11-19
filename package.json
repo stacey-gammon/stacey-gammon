@@ -38,7 +38,8 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "prettier": "^2.4.1"
+    "prettier": "^2.4.1",
+    "gatsby-cli": "^4.2.0"
   },
   "homepage": "https://www.staceygammon.com",
   "keywords": [

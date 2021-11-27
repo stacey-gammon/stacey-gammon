@@ -6,7 +6,7 @@
   "author": "Stacey Gammon <stacey@staceygammon.com>",
   "dependencies": {
     "emotion": "^9.2.4",
-    "gatsby": "^4.1.0",
+    "gatsby": "^4.2.0",
     "gatsby-image": "^3.11.0",
     "gatsby-plugin-disqus": "^1.1.4",
     "gatsby-plugin-google-analytics": "^4.1.0",
@@ -38,8 +38,8 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
-    "prettier": "^2.4.1",
-    "gatsby-cli": "^4.2.0"
+    "gatsby-cli": "^4.2.0",
+    "prettier": "^2.4.1"
   },
   "homepage": "https://www.staceygammon.com",
   "keywords": [

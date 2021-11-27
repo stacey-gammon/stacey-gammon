@@ -24,7 +24,7 @@ npm install -g gatsby-cli
 ### Build and run
 
 ```
-gatsby develop
+yarn develop
 ```
 
 ### View

@@ -89,10 +89,33 @@ Using red colors to indicate nodes with larger negative org scores, and blue col
 
 <img src="./poor_graph.png" height="300px"/>
 
-
 <img src="./well_graph.png" height="300px"/>
 
-The next test was to run this on a real repository, which I did using the [ts_dependency_graph](https://github.com/stacey-gammon/ts_dependency_grapher) repo itself, in meta fashion.
+## Follow-ups
+
+### Programmatically implement the recommendations and run again.
+
+The recommendations are pretty simple, and they fail to take into account moves from _other_ recommendations. For example, say we ran this through:
+
+<img src="./bad_recommendations_1.png" height="300px"/>
+
+It would suggest moving 1 -> B, 2 -> B and 3 -> A.  If you made all those recommendations, you'd end up with something pretty bad:
+
+<img src="./bad_recommendations_2.png" height="300px"/> 
+
+If you ran the algorithm again, you'd end up with just a single big folder.
+
+If you ran each recommendation as it was made, before making others, order would matter. If you started with 1 or 2, rather than 3, you would again end up with one giant folder.
+
+<img src="./bad_recommendations_3.png" height="300px"/> 
+
+### Avoiding one giant module
+
+One problem with this algorithm is that it optimizes one giant module. If every node is in a single folder, the org score would be very high because it would have no intra-dependencies and many inter-dependencies. 
+
+ It doesn't make any recommendations to split one large folder into two.  I have been playing around with a complexity score to account for this. Any parent folder should have a limited number of complexity before it should be split up.
+
+A real world example to show this, I ran the code on itself (using the [ts_dependency_graph](https://github.com/stacey-gammon/ts_dependency_grapher) repo), in meta fashion.
 
 It got a total org score of -110, with the following recommendations:
 
@@ -122,5 +145,3 @@ And the following visual representation:
 <img src="./meta_graph.png" height="300px"/>
 
 This highlighted an issue with my algorithm. Common utilities and types may have no connection to other functionality in a folder, but are pulled out because they are used prolifically. My types.ts folder contains some core `Node` types and I don't think it should go into the `zoom` folder just because `zoom` functionality happens to import it more than other places.
-
-I think the next iteration I will try variations that improve the org score on nodes that are used across many folders.

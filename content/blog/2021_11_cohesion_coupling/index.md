@@ -12,25 +12,28 @@ Earlier this month I was exploring creating [dependency graphs of github reposit
 
 ## Cohesion
 
-Cohesion can be thought of as how well components in a single module fit together. In the following image, the visualization on the right has higher cohesion than the left. But how do you measure it? It's easy to compare the cohesion of two modules, but what if there was just a single visualization? How could you say whether is was cohesive "enough" or not?
+Cohesion can be thought of as how well components in a single module fit together. In the following image, the visualization on the right has higher cohesion than the left. But how do you measure it? It's easy to compare the cohesion of these very two simple modules, but [more realistic graphs](https://www.staceygammon.com/architecture_art/), especially on large code bases, are much more difficult to look at and determine whether the cohesion of any given module is "good" or "bad".
 
 <img src="./cohesion_compare.png" height="300px"/>
 
 ## Coupling
 
-Coupling is how tightly connected components in _separate_ modules are. In the following image, the visualization on the left has tighter higher coupling than the right. Again, how do you measure it, and determine whether it's coupling is "good" or "bad"? Any software engineer could look at the image on the left and tell you it was a terribly organized code base. Aiming for 0 coupling is also bad, as it would encourage code duplication and restrict refactoring.
+Coupling is how tightly connected components in _separate_ modules are. In the following image, the visualization on the left has tighter coupling than the right. However, how do you measure it and determine whether it's level of coupling is "good" or "bad"? Any software engineer could look at the image on the left and tell you it was a terribly organized code base, but it's an extreme. Similar to the above, when looking at more real-world code bases, how does one whether their organization is good, or bad, and what could be done to improve it? We don't want 0 coupling it would make refactoring common code impossible.
 
 <img src="./coupling_compare.png" height="300px"/>
 
 ## Organization score
 
-I've been exploring ways to measure these attributes and come up with a single score to make dependency graphs more actionable. Which nodes have low cohesion and high coupling, such that moving them to another module would improve the overall "organization score" of a code base? Software engineers have intuitive knowledge about whether a code base is well organized, but can a computer? Is there an algorithm we could run to determine how to structure a code base in order to increase cohesion and decrease coupling?
+I've been exploring ways to programmtically measure these attributes and come up with actionable recommendations to improve the organization. Which nodes have low cohesion and high coupling, such that moving them to another module would improve cohesion and decrease coupling? For example, given the following, extremely simple made up organization, where `A` and `B` are folders, `1` and `2` are files, and the lines indicate the dependencies between them, could a program recommend changing the grouping?
 
-To start this exploration I created a simple dependency scenario, then organized them in two different ways. Could I create an algorithm that would give the top one a good score and the bottom one a better one? Could the algorithm suggest improvements to make on the bottom one?
+<img src="./simple_example.png" height="300px"/>
 
-<img src="./well_vs_poor.png" height="300px"/>
+After some modifications to the original algorithm, in order to promote balance, it works!
 
-I used the following orgScore formula:
+| <img src="./simple_example_before.png" height="300px"/> | <img src="./simple_example_after.png" height="300px"/> |
+
+
+The following formula is used to calculate the orgScore:
 
 ```
  orgScore = interDependencyCount - max(intraDependencyCount(parentFolder)).
@@ -38,110 +41,85 @@ I used the following orgScore formula:
 
 `max(intraDependencyCount(parentFolder))` means it takes the dependency weights from each node that comes from a separate parent and takes the max of it. Inter-dependency count is how many internal connections is has to it's siblings.
 
-This means the node has a stronger connection with the nodes of another parent rather than 
+This means the node has a stronger connection with the nodes of another parent rather than itself. 
+If we have `A/1` -> `A/2`, `A/1` -> `B/3`, `A/1` -> `B/4`, then the orgScore would be `1 - max([B, 2])` = `1 - 2` = `-2`.
 
-For example, in the "well organized" graph above, the nodes have the following scores:
+If the org score is negative, than a recommendation is suggested. Once all the recommendations are given, they are applied, and recalculated after each application. If a move is made, the actual recommendation may be different from the initial list of recommendations.
 
-| Source Node | (parent node, [Intra dependencies]) | Max([Intra dependencies]) | Inter dependency count | Org Score |
-|------------|---------------|------|----|----|
-| N1 | No intra-dependencies | 0 | 1 (N3) | 1 |
-| N2 | No intra-dependencies | 0 | 1 (N3) | 1 |
-| N3 | (B, \[N6\]) | 1 | 2 (N1, N2)| 1 |
-| N4 | No intra-dependencies | 0 | 1 (N6) | 1 |
-| N5 | No intra-dependencies | 0 | 1 (N6) | 1 |
-| N6 | (C, \[N9\]), (A, \[N3\]) | 1 | 2 (N4, N5) | 1 |
-| N7 | No intra-dependencies | 0 | 1 (N9) | 1 |
-| N8 | No intra-dependencies | 0 | 1 (N9) | 1 |
-| N9 | (B, \[N6\]) | 1 | 2 (N7, N8) | 1 |
+For example, with the example above the Nodes have the following org scores:
 
-In the "poorly organized" graph above, the nodes have the following scores:
+| Source Node | Org Score |
+|------------|---------------|
+| A/1 | -1 |
+| A/3 | -1 |
+| B/2 | -1 |
+| B/4 | -1 |
 
-| Source Node | (parent node, [Intra dependencies]) | Max([Intra dependencies]) | Inter dependency count | Org Score |
-|------------|---------------|------|----|----|
-| N1 | (B, \[N3\]) | 1 | 0 | -1 |
-| N2 | (B, \[N3\]) | 1 | 0 | -1 |
-| N3 | (A, \[N1, N2\]), (C, \[N6\]) | 2 | 0 | -2 |
-| N4 | (C, \[N6\]) | 1 | 0 | -1 |
-| N5 | (C, \[N6\]) | 1 | 0 | -1 |
-| N6 | (A, \[N9\]), (B, \[N4,N5,N3\]) | 3 | 0 | -3 |
-| N7 | (A, \[N9\]) | 1 | 0 | -1 |
-| N8 | (A, \[N9\]) | 1 | 0 | -1 |
-| N9 | (C, \[N8, N6, N7\]) | 3 | 0 | -3 |
+And the following list of initial move recommendations:
 
-Using summation to come up with a total org score, the first organization gives 9 while the poorly organized one yields -14.
+| Node | New Parent |
+|------------|---------------|
+| A/1 | B |
+| A/3 | B |
+| B/2 | A |
+| B/4 | A |
 
-I incorporated the logic into my [ts_dependency_grapher](https://github.com/stacey-gammon/ts_dependency_grapher) and ran it got no recommendations on the first organization but the second output:
+If we made that entire list of recommendations in a row, we'd be right back where we started! When we apply them and recalculate, making sure to apply one parent node at a time, in order to promote balance, the final moves made are:
+
+| Node | New Parent |
+|----|----|
+| A/1.ts | B |
+| B/4.ts | A |
+
+You can replicate these findings ourself by running the [tsDependencyGrapher](https://github.com/stacey-gammon/ts_dependency_grapher) with the following config.json:
 
 ```
-Consider moving node _A_1_ts to /B
-Consider moving node _A_2_ts to /B
-Consider moving node _A_9_ts to /C
-Consider moving node _B_3_ts to /A
-Consider moving node _B_4_ts to /C
-Consider moving node _B_5_ts to /C
-Consider moving node _C_6_ts to /B
-Consider moving node _C_7_ts to /A
-Consider moving node _C_8_ts to /A
+{
+    "repos": [
+        { 
+            "full_name": "stacey-gammon/ts_dependency_grapher",
+            "tsconfig": "./examples/simple_bad/tsconfig.json",
+            "source": "file",
+            "outputName": "simple_bad",
+            "refresh": true
+        }
+    ],
+    "outputFolder": ".",
+    "excludeFilePaths" : ["_test_", ".test.ts"],
+    "nodeColorWeight": "OrgScore",
+    "nodeSizeWeight": "PublicAPICount",
+    "zooms": [4],
+}
 ```
+
+## Add a bit more complexity
+
+Let's now expand this to two new example code organizations:
+
+
+<img src="./well_vs_poor.png" height="300px"/>
 
 Using red colors to indicate nodes with larger negative org scores, and blue colors to indicate nodes with larger positive org scores, the graphs are representative of the numbers in a visual manner:
-
 
 <img src="./poor_graph.png" height="300px"/>
 
 <img src="./well_graph.png" height="300px"/>
 
-## Follow-ups
+Running the logic on them, the nicely organized graph comes up with no recommendations, while the poorly organized one ends up as:
 
-### Programmatically implement the recommendations and run again.
+<img src="./more_complex_after.png" height="300px"/>
 
-The recommendations are pretty simple, and they fail to take into account moves from _other_ recommendations. For example, say we ran this through:
+Unfortunately, this isn't as balanced as I would have liked, so that part of the algorithm could use some modification.
+## Follow-ups 
 
-<img src="./bad_recommendations_1.png" height="300px"/>
-
-It would suggest moving 1 -> B, 2 -> B and 3 -> A.  If you made all those recommendations, you'd end up with something pretty bad:
-
-<img src="./bad_recommendations_2.png" height="300px"/> 
-
-If you ran the algorithm again, you'd end up with just a single big folder.
-
-If you ran each recommendation as it was made, before making others, order would matter. If you started with 1 or 2, rather than 3, you would again end up with one giant folder.
-
-<img src="./bad_recommendations_3.png" height="300px"/> 
-
-### Avoiding one giant module
+### Improving the balancing
 
 One problem with this algorithm is that it optimizes one giant module. If every node is in a single folder, the org score would be very high because it would have no intra-dependencies and many inter-dependencies. 
 
- It doesn't make any recommendations to split one large folder into two.  I have been playing around with a complexity score to account for this. Any parent folder should have a limited number of complexity before it should be split up.
+ It doesn't make any recommendations to split one large folder into two.
 
-A real world example to show this, I ran the code on itself (using the [ts_dependency_graph](https://github.com/stacey-gammon/ts_dependency_grapher) repo), in meta fashion.
+### Accounting for common code
 
-It got a total org score of -110, with the following recommendations:
+<img src="./accounting_for_common_code.png" height="300px"/>
 
-```
-Consider moving node _src_config_ts to /src/graph_vis
-Consider moving node _src_types_ts to /src/zoom
-Consider moving node _src_utils_ts to /src/dependency_parsing
-Consider moving node _src_dependency_parsing_add_edges_ts to /src
-Consider moving node _src_dependency_parsing_add_node_ts to /src
-Consider moving node _src_dependency_parsing_fill_inter_dependency_count_ts to /src
-Consider moving node _src_dependency_parsing_parse_dependencies_ts to /src
-Consider moving node _src_graph_vis_build_digraph_text_ts to /src
-Consider moving node _src_graph_vis_build_dot_file_ts to /src
-Consider moving node _src_graph_vis_build_node_text_ts to /src
-Consider moving node _src_stats_coupling_weights_ts to /src
-Consider moving node _src_stats_fill_dependency_counts_ts to /src
-Consider moving node _src_stats_fill_node_stats_ts to /src
-Consider moving node _src_stats_max_coupled_weight_ts to /src
-Consider moving node _src_stats_types_ts to /src/graph_vis
-Consider moving node _src_zoom_rollup_edges_ts to /src
-Consider moving node _src_zoom_types_ts to /src
-Consider moving node _src_zoom_zoom_out_ts to /src
-```
-
-And the following visual representation:
-
-<img src="./meta_graph.png" height="300px"/>
-
-This highlighted an issue with my algorithm. Common utilities and types may have no connection to other functionality in a folder, but are pulled out because they are used prolifically. My types.ts folder contains some core `Node` types and I don't think it should go into the `zoom` folder just because `zoom` functionality happens to import it more than other places.
+Another issue with te algorithm is common utilities and types. They may have few connections to other functionality in a folder, and strong connections to many other modules. The algorithm would pick one that has the strongest connection and put it in there but that is not how engineers usually organize common utilities and types. These are usually more discoverable if they are in a separate folder.
